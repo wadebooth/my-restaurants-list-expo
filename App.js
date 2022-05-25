@@ -5,6 +5,7 @@ import {
   View,
   ActivityIndicator,
   ImageBackground,
+  ScrollView,
 } from "react-native";
 import { useEffect, useState } from "react";
 
@@ -37,16 +38,17 @@ export default function App() {
         source={image}
         style={styles.container}
       >
+        {/* <ScrollView> */}
         {allRestaurants ? (
           allRestaurants?.map((singleRest) => (
-            <Text styles={styles} key={singleRest.id}>
+            <Text styles={styles.restaurantsName} key={singleRest.id}>
               {singleRest.name}
             </Text>
           ))
         ) : (
           <ActivityIndicator size="large" color="orange" />
         )}
-        <Text>Drippy</Text>
+        {/* </ScrollView> */}
         <StatusBar style="auto" />
       </ImageBackground>
     </View>
@@ -60,5 +62,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
+  },
+  restaurantsName: {
+    color: "red",
+    fontSize: 70,
+    marginVertical: 150,
   },
 });
