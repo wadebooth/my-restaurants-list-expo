@@ -1,16 +1,16 @@
-import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
+import { StatusBar } from "expo-status-bar";
 import {
-  Text,
+  SafeAreaView,
   View,
   ActivityIndicator,
   ImageBackground,
   ScrollView,
-  Image,
 } from "react-native";
+import RestaurantCard from "./src/components/RestaurantCard";
 import styles from "./src/styles";
 
-const image = {
+const bgImage = {
   uri: "https://png.pngtree.com/background/20210709/original/pngtree-food-western-food-steak-tomato-picture-image_941801.jpg",
 };
 
@@ -18,48 +18,30 @@ export default function App() {
   const [allRestaurants, setAllRestaurants] = useState();
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          "https://my-first-firestore-st.web.app/restaurants/"
-        );
-        const data = await response.json();
-        setAllRestaurants(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getData();
+    fetch("https://my-first-firestore-bc.web.app/restaurants/")
+      .then((response) => response.json())
+      .then(setAllRestaurants)
+      .catch(console.error);
   }, []);
 
   return (
     <View style={styles.container}>
       <ImageBackground
         resizeMode="cover"
-        source={image}
+        source={bgImage}
         style={styles.container}
       >
-        <ScrollView>
-          {allRestaurants ? (
-            allRestaurants?.map((singleRest) => (
-              <>
-                <Text style={styles.restaurantsName} key={singleRest.id}>
-                  {singleRest.name} / {singleRest.cuisine}
-                </Text>
-                <Image
-                  source={{ uri: singleRest.img }}
-                  style={{ width: "100%", height: 100 }}
-                />
-              </>
-            ))
-          ) : (
-            <ActivityIndicator size="large" color="orange" />
-          )}
-        </ScrollView>
-        <Text style={{ color: "white", marginBottom: 20 }}>
-          Hey class whats up test
-        </Text>
+        <SafeAreaView style={styles.container}>
+          <ScrollView>
+            {!allRestaurants ? (
+              <ActivityIndicator size="large" color="orange" />
+            ) : (
+              allRestaurants.map((singleRest) => (
+                <RestaurantCard key={singleRest.id} singleRest={singleRest} />
+              ))
+            )}
+          </ScrollView>
+        </SafeAreaView>
         <StatusBar style="auto" />
       </ImageBackground>
     </View>
