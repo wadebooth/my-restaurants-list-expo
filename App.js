@@ -1,15 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   ActivityIndicator,
   ImageBackground,
   ScrollView,
   Image,
-  Button,
 } from "react-native";
+import styles from "./src/styles";
 
 const image = {
   uri: "https://png.pngtree.com/background/20210709/original/pngtree-food-western-food-steak-tomato-picture-image_941801.jpg",
@@ -58,7 +57,6 @@ export default function App() {
             <ActivityIndicator size="large" color="orange" />
           )}
         </ScrollView>
-        <Button title="Press me" color="#f194ff" />
         <Text style={{ color: "white", marginBottom: 20 }}>
           Hey class whats up test
         </Text>
@@ -67,18 +65,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  restaurantsName: {
-    color: "white",
-    fontSize: 70,
-    marginVertical: 150,
-  },
-});
